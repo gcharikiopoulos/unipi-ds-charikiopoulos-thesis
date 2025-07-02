@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AIS Vessel Viewer</title>
+        <!-- Load CSS stylesheets -->
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <!-- Load JS libraries -->
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script type="module" src="{{ url_for('static', filename='js/helper.js') }}"></script>
+        <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    </head>
+    <body>
+        <div id="app-container">
+            <header>AIS Vessel Viewer - US waters 2024</header>
+            <div id="main-content">
+                <div id="sidebar">
+                    <!-- View buttons always at top -->
+                    <div class="sidebar-section">
+                        <h3>Select view type</h3>
+                        <button id="show-markers">Show Markers</button>
+                        <button id="show-heatmap">Show Heatmap</button>
+                        <button id="show-medoids">Show Medoids</button>
+                    </div>
+
+                    <!-- Standard sidebar content for markers/heatmap -->
+                    <div id="standard-sidebar">
+                        <div id="summary-panel" class="sidebar-section">
+                            <h3>Summary</h3>
+                            <table class="summary-table">
+                              <tr><td><b>Vessels:</b></td><td id="vessel-count">-</td></tr>
+                              <tr><td><b>Min Lat/Lon:</b></td><td id="min-coords">-</td></tr>
+                              <tr><td><b>Max Lat/Lon:</b></td><td id="max-coords">-</td></tr>
+                              <tr><td><b>From:</b></td><td id="date-from">-</td></tr>
+                              <tr><td><b>To:</b></td><td id="date-to">-</td></tr>
+                              <tr><td><b>Type:</b></td><td id="summary-type">-</td></tr>
+                            </table>
+                          </div>
+                          
+                        <div style="margin-top: 30px;" class="sidebar-section">
+                            <h3>Filters</h3>
+                        
+                            <label for="datetime-range">Datetime Range (UTC):</label>
+                            <input type="text" id="datetime-range" class="datetime-picker" />
+                        
+                            <label for="vessel-type">Vessel Type:</label>
+                            <select id="vessel-type">
+                                <option value="all">All Types</option>
+                                <option value="fishing">Fishing</option>
+                                <option value="towing">Towing</option>
+                                <option value="special_ops">Special Operations</option>
+                                <option value="sailing">Sailing</option>
+                                <option value="pleasure">Pleasure Craft</option>
+                                <option value="hsc">High Speed Craft</option>
+                                <option value="service">Service Vessel</option>
+                                <option value="passenger">Passenger</option>
+                                <option value="cargo">Cargo</option>
+                                <option value="tanker">Tanker</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Medoids sidebar content -->
+                    <div id="medoids-sidebar" class="sidebar-section" style="display: none;">
+                        <h3>Trajectory Medoids</h3>
+                        <p>Toggle visibility of trajectory medoids:</p>
+                        <div id="checkbox-container">
+                            <!-- Checkboxes will be populated dynamically -->
+                        </div>
+                    </div>
+                  </div>                  
+                <div id="map"></div>
+                <div id="loader-overlay" class="loader-overlay">
+                    <div id="loader" class="loader">
+                        <div class="spinner"></div>
+                        <span>Loading data...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# AIS downsampled data in csv format
+#  This is a large dataset that is not needed for development and can be regenerated.
+app/static/files/ais_raw/*
+app/database/sql/ais_database_20250701.sql
