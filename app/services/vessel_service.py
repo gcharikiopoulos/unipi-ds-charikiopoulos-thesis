@@ -108,10 +108,8 @@ class VesselService:
         """
         # You can replace this with medoid MMSIs you obtained from clustering analysis
         medoid_mmsis_array = [
-            367321850,  # Medoid for cluster 0
-            368323490,  # Medoid for cluster 1
-            371557000,  # Medoid for cluster 2
-            367151590  # Medoid for cluster 3
+            367410690, 367729320, 367680870 # k=3
+            # 367321850, 368323490, 371557000,  367151590 # k=4
         ]
         
         conn = get_db_connection()
